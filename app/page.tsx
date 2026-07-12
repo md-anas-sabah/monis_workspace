@@ -1,64 +1,71 @@
-import Image from "next/image";
+import Builder from "@/components/builder";
+import { CheckIcon, LeafIcon, SunIcon } from "@/components/glyphs";
+
+const ASSURANCES = [
+  "Delivered & installed in 48h",
+  "Swap any piece, anytime",
+  "Cancel monthly",
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="relative min-h-screen overflow-x-clip">
+      <main className="mx-auto max-w-6xl px-5 pb-32 sm:px-8 lg:pb-16">
+        {/* ---------- Header ---------- */}
+        <header className="flex items-center justify-between py-6">
+          <a href="#" className="flex items-center gap-2.5">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-palm-800 text-cream shadow-sm">
+              <LeafIcon className="h-5 w-5" />
+            </span>
+            <span className="font-display text-xl tracking-tight text-ink">
+              monis<span className="italic text-clay-500">.rent</span>
+            </span>
+          </a>
+          <span className="inline-flex items-center gap-2 rounded-full bg-cream px-4 py-1.5 text-sm text-stone-600 ring-1 ring-ink/10">
+            <SunIcon className="h-4 w-4 text-gold-500" />
+            Canggu · Bali
+          </span>
+        </header>
+
+        {/* ---------- Hero ---------- */}
+        <section className="motion-safe:animate-rise mb-10 mt-6 max-w-2xl lg:mb-12">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-palm-700">
+            The workspace builder
           </p>
+          <h1 className="mt-3 font-display text-[clamp(2.6rem,6vw,4.1rem)] leading-[1.02] tracking-tight text-ink">
+            Build your <em className="italic text-clay-500">island office</em>,
+            piece by piece.
+          </h1>
+          <p className="mt-5 max-w-xl text-lg leading-8 text-stone-600">
+            Pick every piece, watch the room come together, and have it
+            installed at your villa within 48 hours. Renting beats owning —
+            especially 8,000 miles from home.
+          </p>
+          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-600">
+            {ASSURANCES.map((item) => (
+              <li key={item} className="inline-flex items-center gap-2">
+                <CheckIcon className="h-4 w-4 text-palm-600" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* ---------- Builder ---------- */}
+        <div
+          className="motion-safe:animate-rise"
+          style={{ animationDelay: "120ms" }}
+        >
+          <Builder />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+
+        {/* ---------- Footer ---------- */}
+        <footer className="mt-20 flex flex-col items-start justify-between gap-3 border-t border-sand-200 pt-8 text-sm text-stone-500 sm:flex-row sm:items-center">
+          <p>© {new Date().getFullYear()} monis.rent — Bali</p>
+          <p className="font-display italic text-stone-400">
+            workspaces, minus the commitment.
+          </p>
+        </footer>
       </main>
     </div>
   );

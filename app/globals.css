@@ -1,26 +1,251 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* Warm sand neutrals */
+  --color-sand-50: #faf6ed;
+  --color-sand-100: #f4edda;
+  --color-sand-200: #eadfc4;
+  --color-sand-300: #dccca6;
+  --color-cream: #fffbf2;
+  --color-ink: #26211a;
+
+  /* Palm greens */
+  --color-palm-50: #f0f5ee;
+  --color-palm-100: #dcead8;
+  --color-palm-200: #b9d3b4;
+  --color-palm-300: #8cb489;
+  --color-palm-400: #5d9366;
+  --color-palm-500: #3b7a52;
+  --color-palm-600: #2c6645;
+  --color-palm-700: #225239;
+  --color-palm-800: #1b422f;
+  --color-palm-900: #143326;
+  --color-palm-950: #0c231a;
+
+  /* Terracotta clays */
+  --color-clay-50: #fbf1ea;
+  --color-clay-100: #f6dfd0;
+  --color-clay-200: #ebc3a9;
+  --color-clay-300: #dfa37f;
+  --color-clay-400: #d28459;
+  --color-clay-500: #c06a3e;
+  --color-clay-600: #a35430;
+  --color-clay-700: #824227;
+
+  /* Sun golds */
+  --color-gold-200: #f7dfa4;
+  --color-gold-300: #f2ce74;
+  --color-gold-400: #eab94a;
+  --color-gold-500: #dfa42e;
+
+  --animate-rise: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pop: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-1.6deg);
+  }
+  to {
+    transform: rotate(1.8deg);
+  }
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  35% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-13px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes ray-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes confetti-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--cx), var(--cy)) rotate(var(--cr)) scale(0.6);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-sand-50);
+  background-image:
+    radial-gradient(
+      1100px 500px at 78% -8%,
+      rgba(234, 185, 74, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 460px at -12% 8%,
+      rgba(44, 102, 69, 0.09),
+      transparent 55%
+    );
+  background-repeat: no-repeat;
+  color: var(--color-ink);
+  font-family:
+    var(--font-sans),
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(192, 106, 62, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-palm-600);
+  outline-offset: 2px;
+}
+
+/* ---------- Scene (SVG) helpers ---------- */
+
+.scene-pop {
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.dusk-fade {
+  transition: opacity 0.8s ease;
+}
+
+.desk-lift {
+  transition: transform 0.7s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+
+.sway {
+  animation: sway 5.5s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.steam {
+  animation: steam 2.8s ease-in-out infinite;
+}
+
+.steam-late {
+  animation: steam 2.8s ease-in-out 1.4s infinite;
+}
+
+.twinkle {
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.rays {
+  animation: ray-spin 70s linear infinite;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 13px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: confetti-burst 0.95s cubic-bezier(0.16, 0.84, 0.44, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-pop,
+  .sway,
+  .steam,
+  .steam-late,
+  .twinkle,
+  .rays,
+  .confetti-piece {
+    animation: none;
+  }
+  .desk-lift,
+  .dusk-fade {
+    transition: none;
+  }
 }
